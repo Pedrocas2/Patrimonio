@@ -59,6 +59,12 @@ const Card = (inner,extra='') => `<div class="glass lift p-4 h-100 ${extra}">${i
 const Bar = p => `<div class="progress"><div class="progress-bar" style="width:${p}%"></div></div>`;
 const Alert = (icon,txt,badge,k='b-green') => `<div class="glass lift alert-card"><div class="icon-dot"><i class="bi ${icon}"></i></div><div class="flex-grow-1">${txt}</div><span class="badge-pill ${k}">${badge}</span></div>`;
 
+/* Faixa de apresentação da página inicial (a imagem define-se em --hero-img no style.css) */
+const Hero = () => `<div class="landing"><div class="landing-in">
+  <h2>Todo o seu dinheiro,<br>numa só vista.</h2>
+  <p>Bancos, depósitos, cripto e bolsa reunidos para decidir com clareza.</p>
+  <div class="d-flex flex-wrap gap-2"><a class="btn-pill btn-green" href="#depositos">Ver depósitos</a><a class="btn-pill btn-soft" href="#comparador">Comparar bancos</a></div></div></div>`;
+
 /* Gráfico de rosca (conic-gradient) */
 function Donut(parts){
   let acc=0; const stops=parts.map(p=>{const s=acc;acc+=p.v/tot.all*100;return `${p.c} ${s}% ${acc}%`}).join(',');
@@ -80,6 +86,7 @@ const Views = {
     const parts=[{l:'Bancos',v:tot.bancos,c:'#34C759'},{l:'Depósitos',v:tot.dep,c:'#C9BBA0'},{l:'Cripto',v:tot.cripto,c:'#E6DCC8'},{l:'Bolsa',v:tot.bolsa,c:'#D6D6DB'}];
     const evo=[0.82,0.85,0.84,0.89,0.93,0.92,0.97,1].map(x=>x*tot.all);
     return `<div class="row g-3">
+      <div class="col-12">${Hero()}</div>
       <div class="col-12">${Card(`<div class="hero"><div class="text-muted">Património total</div><div class="v">${kz(tot.all)}</div><span class="badge-pill b-green"><i class="bi bi-graph-up-arrow"></i> +12,0% este ano</span></div><div class="mt-3">${Line(evo)}</div>`)}</div>
       <div class="col-6 col-xl-3">${Stat('bi-bank','Bancos',kz(tot.bancos))}</div>
       <div class="col-6 col-xl-3">${Stat('bi-piggy-bank','Depósitos',kz(tot.dep))}</div>
@@ -134,25 +141,36 @@ function alertas(){
 }
 
 /* ===== 6. Navegação (hash) e pesquisa ===== */
-const Menu=[['dashboard','bi-grid-1x2','Dashboard'],['bancos','bi-bank','Bancos'],['depositos','bi-piggy-bank','Depósitos'],['comparador','bi-bar-chart-steps','Comparador'],
-  ['cripto','bi-currency-bitcoin','Cripto'],['bolsa','bi-graph-up','Bolsa'],['historico','bi-clock-history','Histórico'],['alertas','bi-bell','Alertas']];
-document.getElementById('nav').innerHTML='<div class="brand"><i class="bi bi-pie-chart-fill"></i> Património</div>'+
-  Menu.map(m=>`<a class="nav-link-x" href="#${m[0]}" data-id="${m[0]}" aria-label="${m[2]}"><i class="bi ${m[1]}"></i><span>${m[2]}</span></a>`).join('');
+const $ = id => document.getElementById(id);
+// 4.º valor: true = aparece no cabeçalho; false = só na mini janela "Mais"
+const Menu=[['dashboard','bi-grid-1x2','Dashboard',true],['bancos','bi-bank','Bancos',true],['depositos','bi-piggy-bank','Depósitos',true],['comparador','bi-bar-chart-steps','Comparador',true],
+  ['cripto','bi-currency-bitcoin','Cripto',false],['bolsa','bi-graph-up','Bolsa',false],['historico','bi-clock-history','Histórico',false],['alertas','bi-bell','Alertas',false]];
+const link=(m,c)=>`<a class="${c}" href="#${m[0]}" data-id="${m[0]}"><i class="bi ${m[1]}"></i><span>${m[2]}</span></a>`;
+$('mainLinks').innerHTML=Menu.filter(m=>m[3]).map(m=>link(m,'nav-link-x')).join('');
+// No telemóvel as opções principais também aparecem aqui (classe mobile-only)
+$('morePop').innerHTML='<div class="more-title">Explorar</div>'+Menu.map(m=>link(m,'nav-link-x more-item'+(m[3]?' mobile-only':''))).join('');
+
+/* Mini janela "Mais" */
+const setMore=o=>{$('morePop').hidden=!o;$('moreBtn').setAttribute('aria-expanded',o)};
+$('moreBtn').onclick=e=>{e.stopPropagation();setMore($('morePop').hidden)};
+document.addEventListener('click',e=>{if(!$('morePop').contains(e.target))setMore(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')setMore(false)});
 
 function go(){
   const id=(location.hash||'#dashboard').slice(1); const m=Menu.find(x=>x[0]===id)||Menu[0];
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  const el=document.getElementById(m[0]); el.innerHTML=Views[m[0]](); el.classList.add('active');
+  const el=$(m[0]); el.innerHTML=Views[m[0]](); el.classList.add('active');
   document.querySelectorAll('.nav-link-x').forEach(a=>a.classList.toggle('active',a.dataset.id===m[0]));
-  document.getElementById('title').textContent=m[2]; document.getElementById('q').value='';
+  $('moreBtn').classList.toggle('on',!m[3]);      // realça "Mais" se o ecrã atual estiver lá
+  document.title=m[2]+' · Património'; $('q').value=''; setMore(false); window.scrollTo({top:0});
 }
 window.addEventListener('hashchange',go); go();
 
-/* Pesquisa: filtra cartões e linhas da vista ativa */
-document.getElementById('q').addEventListener('input',e=>{
+/* Pesquisa: filtra cartões e linhas do ecrã ativo */
+$('q').addEventListener('input',e=>{
   const t=e.target.value.toLowerCase();
   document.querySelectorAll('.view.active [class*="col-"] > .glass, .view.active tbody tr').forEach(n=>{
     const box=n.closest('[class*="col-"]')&&n.parentElement.className.includes('col-')?n.parentElement:n;
     box.style.display=n.textContent.toLowerCase().includes(t)?'':'none';});
 });
-document.getElementById('addBtn').onclick=()=>alert('Em breve: formulário para registar uma nova operação.');
+$('addBtn').onclick=()=>alert('Em breve: formulário para registar uma nova operação.');

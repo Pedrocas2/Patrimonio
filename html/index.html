@@ -10,17 +10,20 @@
 </head>
 <body>
 
-<!-- Sidebar -->
-<nav class="sidebar glass" id="nav" aria-label="Navegação principal"></nav>
+<!-- Cabeçalho Liquid Glass: logótipo | opções principais | ações -->
+<header class="topnav glass">
+  <a class="logo" href="#dashboard" aria-label="Início"><i class="bi bi-pie-chart-fill"></i><span>Património<small>Gestão financeira</small></span></a>
+  <nav class="main-links" id="mainLinks" aria-label="Navegação principal"></nav>
+  <div class="actions">
+    <input class="search form-control" id="q" placeholder="Pesquisar…" aria-label="Pesquisar">
+    <button class="btn-pill btn-green" id="addBtn"><i class="bi bi-plus-lg"></i> <span class="d-none d-sm-inline">Nova operação</span></button>
+    <button class="btn-pill btn-soft" id="moreBtn" aria-haspopup="true" aria-expanded="false" aria-controls="morePop"><i class="bi bi-grid-3x3-gap-fill"></i> <span class="d-none d-sm-inline">Mais</span></button>
+  </div>
+</header>
+<!-- Mini janela com os restantes ecrãs (canto superior direito) -->
+<div class="more-pop glass" id="morePop" hidden></div>
 
 <main>
-  <!-- Navbar transparente -->
-  <header class="topbar d-flex align-items-center gap-3">
-    <div class="me-auto"><div class="text-muted small">Olá, bem-vindo</div><h1 class="h4 m-0 fw-bold" id="title">Dashboard</h1></div>
-    <input class="search form-control d-none d-md-block w-auto" id="q" placeholder="Pesquisar bancos, ativos…" aria-label="Pesquisar">
-    <button class="btn-pill btn-green" id="addBtn"><i class="bi bi-plus-lg"></i> <span class="d-none d-sm-inline">Nova operação</span></button>
-  </header>
-
   <section class="view" id="dashboard"></section>
   <section class="view" id="bancos"></section>
   <section class="view" id="depositos"></section>
