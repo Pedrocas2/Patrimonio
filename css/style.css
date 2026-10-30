@@ -1,6 +1,10 @@
-/* ===== 1. Tokens (60% branco/cinza, 20% bege, 10% verde) ===== */
+/* ===== 1. Tokens (60% branco/cinza, 20% bege, 10% azul) ===== */
 :root{
+<<<<<<< HEAD
   --white:#FFFFFF; --grey:#F5F4F1; --beige:#BFAF84; --green:#BFAF84; --green-ink:#766744;
+=======
+  --white:#FFFFFF; --grey:#F5F5F7; --beige:#F4EFE6; --accent:#3478F6; --accent-ink:#1D55C4;
+>>>>>>> 1eb65badf1035630304645b4a3d5fc39070240bb
   --ink:#1D1D1F; --muted:#6E6E73; --red:#C2574B;
   --glass:rgba(255,255,255,.62); --glass-line:rgba(255,255,255,.85);
   --hero-img:none; /* ← imagem de fundo da página inicial, ex.: url("img/fundo.jpg") */
@@ -10,7 +14,7 @@ body{font-family:-apple-system,"SF Pro Display","Inter","Segoe UI",system-ui,san
   background:radial-gradient(900px 500px at 85% -10%,var(--beige),transparent 60%),radial-gradient(700px 500px at -10% 90%,var(--beige),transparent 60%),var(--grey);
   background-attachment:fixed;letter-spacing:-.01em}
 .text-muted{color:var(--muted)!important}
-.pos{color:var(--green-ink);font-weight:600}.neg{color:var(--red);font-weight:600}
+.pos{color:var(--accent-ink);font-weight:600}.neg{color:var(--red);font-weight:600}
 
 /* ===== 2. Componentes de vidro ===== */
 .glass{background:var(--glass);backdrop-filter:blur(24px) saturate(160%);-webkit-backdrop-filter:blur(24px) saturate(160%);
@@ -18,17 +22,17 @@ body{font-family:-apple-system,"SF Pro Display","Inter","Segoe UI",system-ui,san
 .glass.lift:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(60,50,30,.12)}
 .btn-pill{border-radius:var(--pill);padding:.55rem 1.2rem;font-weight:600;border:0;transition:transform .2s,filter .2s}
 .btn-pill:hover{transform:scale(1.03)}.btn-pill:active{transform:scale(.97)}
-.btn-green{background:var(--green);color:#fff}.btn-soft{background:var(--white);color:var(--ink)}
+.btn-accent{background:var(--accent);color:#fff}.btn-soft{background:var(--white);color:var(--ink)}
 .search{border-radius:var(--pill);border:1px solid var(--glass-line);background:var(--glass);padding:.55rem 1.1rem;min-width:0}
-.search:focus{box-shadow:0 0 0 4px rgba(52,199,89,.2);border-color:var(--green);background:#fff}
+.search:focus{box-shadow:0 0 0 4px rgba(52,120,246,.2);border-color:var(--accent);background:#fff}
 .badge-pill{border-radius:var(--pill);padding:.35em .8em;font-weight:600;font-size:.75rem}
-.b-green{background:rgba(52,199,89,.15);color:var(--green-ink)}.b-beige{background:var(--beige);color:#6b5d3f}.b-red{background:rgba(194,87,75,.12);color:var(--red)}
-.progress{height:8px;border-radius:var(--pill);background:rgba(0,0,0,.06)}.progress-bar{background:var(--green);border-radius:var(--pill);transition:width 1s}
-:focus-visible{outline:3px solid rgba(52,199,89,.5);outline-offset:2px}
+.b-accent{background:rgba(52,120,246,.15);color:var(--accent-ink)}.b-beige{background:var(--beige);color:#6b5d3f}.b-red{background:rgba(194,87,75,.12);color:var(--red)}
+.progress{height:8px;border-radius:var(--pill);background:rgba(0,0,0,.06)}.progress-bar{background:var(--accent);border-radius:var(--pill);transition:width 1s}
+:focus-visible{outline:3px solid rgba(52,120,246,.5);outline-offset:2px}
 
 /* ===== 3. Layout ===== */
 .nav-link-x:hover{background:rgba(255,255,255,.7);color:var(--ink)}
-.nav-link-x.active{background:var(--white);color:var(--ink);box-shadow:0 4px 14px rgba(0,0,0,.07)}.nav-link-x.active i{color:var(--green)}
+.nav-link-x.active{background:var(--white);color:var(--ink);box-shadow:0 4px 14px rgba(0,0,0,.07)}.nav-link-x.active i{color:var(--accent)}
 .view{display:none}.view.active{display:block;animation:in .5s ease}
 @keyframes in{from{opacity:0;transform:translateY(8px)}}
 .stat .v{font-size:1.6rem;font-weight:700;letter-spacing:-.03em}
@@ -39,7 +43,7 @@ body{font-family:-apple-system,"SF Pro Display","Inter","Segoe UI",system-ui,san
 .tbl td{background:rgba(255,255,255,.7);border:0;padding:.85rem 1rem;white-space:nowrap;vertical-align:middle}
 .tbl td:first-child{border-radius:var(--pill) 0 0 var(--pill)}.tbl td:last-child{border-radius:0 var(--pill) var(--pill) 0}
 .tbl tr{transition:transform .2s}.tbl tbody tr:hover{transform:scale(1.005)}
-.tbl tr.best td{background:rgba(52,199,89,.16)}
+.tbl tr.best td{background:rgba(52,120,246,.16)}
 .donut{width:190px;height:190px;border-radius:50%;margin:auto;display:grid;place-items:center;transition:transform .5s}
 .donut:hover{transform:rotate(6deg) scale(1.03)}
 .donut div{width:122px;height:122px;border-radius:50%;background:#fff;display:grid;place-items:center;text-align:center;font-size:.8rem}
@@ -51,7 +55,7 @@ body{font-family:-apple-system,"SF Pro Display","Inter","Segoe UI",system-ui,san
 /* ===== 4. Aerógrafo: manchas de cor suaves por trás de tudo ===== */
 body{padding-top:104px}
 body::before{content:"";position:fixed;inset:-10%;z-index:-1;pointer-events:none;filter:blur(40px);
-  background:radial-gradient(38% 34% at 12% 18%,rgba(52,199,89,.16),transparent 70%),
+  background:radial-gradient(38% 34% at 12% 18%,rgba(52,120,246,.16),transparent 70%),
              radial-gradient(34% 34% at 88% 12%,rgba(214,196,160,.5),transparent 70%),
              radial-gradient(46% 40% at 72% 92%,rgba(244,239,230,.95),transparent 70%)}
 main{max-width:1400px;margin:0 auto;padding:1rem 1.5rem 3rem}
@@ -62,16 +66,16 @@ a.btn-pill{display:inline-block;text-decoration:none}
   background:linear-gradient(135deg,rgba(255,255,255,.8),rgba(255,255,255,.42));
   box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(255,255,255,.35)}
 .logo{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:var(--ink);font-weight:700;font-size:1.1rem;line-height:1.1;white-space:nowrap}
-.logo i{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--green);color:#fff;box-shadow:0 4px 12px rgba(52,199,89,.35)}
+.logo i{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#fff;box-shadow:0 4px 12px rgba(52,120,246,.35)}
 .logo small{display:block;font-weight:500;font-size:.68rem;color:var(--muted)}
 .main-links{display:flex;gap:.2rem;margin:0 auto}
 .nav-link-x{display:flex;gap:.55rem;align-items:center;padding:.6rem 1rem;border-radius:var(--pill);color:var(--muted);text-decoration:none;font-weight:500;white-space:nowrap;transition:.25s}
 .nav-link-x:hover{background:rgba(255,255,255,.75);color:var(--ink)}
-.nav-link-x.active{background:var(--white);color:var(--ink);box-shadow:0 4px 14px rgba(0,0,0,.07)}.nav-link-x.active i{color:var(--green)}
+.nav-link-x.active{background:var(--white);color:var(--ink);box-shadow:0 4px 14px rgba(0,0,0,.07)}.nav-link-x.active i{color:var(--accent)}
 .actions{display:flex;align-items:center;gap:.6rem;margin-left:auto}
 .main-links+.actions{margin-left:0}
 .actions .search{width:190px}
-#moreBtn.on{box-shadow:0 0 0 2px var(--green)}
+#moreBtn.on{box-shadow:0 0 0 2px var(--accent)}
 
 /* Mini janela "Mais" */
 .more-pop{position:fixed;top:90px;right:12px;z-index:40;width:250px;padding:.6rem;border-radius:28px;transform-origin:top right;animation:pop .3s cubic-bezier(.2,.9,.3,1.2);
@@ -82,8 +86,13 @@ a.btn-pill{display:inline-block;text-decoration:none}
 @keyframes pop{from{opacity:0;transform:scale(.9) translateY(-8px)}}
 
 /* ===== 6. Página inicial: frase + imagem de fundo ===== */
+<<<<<<< HEAD
 .landing{position:relative;min-height:min(690px,calc(100vh - 125px));border-radius:0;overflow:hidden;display:flex;align-items:center;
   background:var(--hero-img),radial-gradient(60% 80% at 8% 100%,rgba(52,199,89,.28),transparent 65%),radial-gradient(55% 70% at 95% 0%,rgba(214,196,160,.7),transparent 65%),linear-gradient(135deg,#fff,var(--beige));
+=======
+.landing{position:relative;min-height:340px;border-radius:36px;overflow:hidden;display:flex;align-items:flex-end;
+  background:var(--hero-img),radial-gradient(60% 80% at 8% 100%,rgba(52,120,246,.28),transparent 65%),radial-gradient(55% 70% at 95% 0%,rgba(214,196,160,.7),transparent 65%),linear-gradient(135deg,#fff,var(--beige));
+>>>>>>> 1eb65badf1035630304645b4a3d5fc39070240bb
   background-size:cover;background-position:center;box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.9)}
 .landing:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.72),rgba(255,255,255,0) 70%)}
 .landing-in{position:relative;z-index:1;padding:clamp(1.5rem,4vw,3rem)}
